@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+
+</head>
+<body>
+
+<section layout:fragment="content">
+    <div class="container mt-4">
+        <h2 class="mb-4">Products</h2>
+        <select id="categoryDropDown" class="form-control mb-4" style="width: 250px">
+            <option value="all">All categories</option>
+            <option th:each="category: ${categories}" th:value="${category.naziv}"
+                    th:selected="${selectedCategoryName != null && category.naziv == selectedCategoryName}"
+                    th:text="${category.naziv}"></option>
+        </select>
+        <table class="table table-bordered table-hover" id="productsTable">
+            <thead>
+            <tr>
+                <th>Category</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Available Quantity</th>
+                <th>Quantity</th>
+                <th>Action</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="product: ${products}" th:data-product-id="${product.idProizvod}">
+                <td th:text="${categoryMap.get(product.kategorijaID)}"></td>
+                <td th:text="${product.naziv}"></td>
+                <td th:text="${product.cijena} + ' €'"></td>
+                <td th:text="${product.dostupnaKolicina}"></td>
+                <td>
+                    <form th:action="@{cart/add}" method="post">
+                        <input type="hidden" name="productId" th:value="${product.idProizvod}"/>
+                        <input type="number" class="form-control product-quantity" name="quantity"
+                               th:value="1" min="1" th:max="${product.dostupnaKolicina}"/>
+                        <td>
+                            <button type="submit" class="btn btn-outline-primary add-to-cart-btn">Add to Cart</button>
+                        </td>
+                    </form>
+                </td>
+            </tbody>
+
+        </table>
+
+    </div>
+    <script>
+        $(document).ready(function () {
+            var table = $('#productsTable').DataTable();
+
+            $('#categoryDropdown').on('change', function () {
+                var selectedCategoryName = $(this).find("option:selected").text();
+
+                if (selectedCategoryName === "All Categories") {
+                    table.column(0).search('').draw();
+                } else {
+                    table.column(0).search(selectedCategoryName).draw();
+                }
+            }).trigger('change');
+        });
+    </script>
+</section>
+
+</body>
+</html>

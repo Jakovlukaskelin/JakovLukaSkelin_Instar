@@ -238,4 +238,7 @@ String sql = "INSERT INTO LoginHistory (Username, vrijemeLogina, ipAdresa) VALUE
         return jdbcTemplate.queryForList(sql, String.class);
 
     }
+
+
+
 }

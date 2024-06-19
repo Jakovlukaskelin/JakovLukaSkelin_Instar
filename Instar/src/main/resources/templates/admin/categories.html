@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="container mt-4">
+        <h2>Admin categories</h2>
+        <div th:if="${deletionStatus == 'success'}" class="alert alert-success "> Deletion successful!</div>
+        <div th:if="${deletionStatus == 'error'}" class="alert alert-danger "> Deletion failed!</div>
+        <div th:if="${deletionStatus == 'unable'}" class="alert alert-warning "> Unable to delete category. There are existing associated products.</div>
+        <TABLE class="table table-border table-hover" id="adminCategoriesTable">
+            <thead>
+            <tr>
+                <th>Category Name</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="category : ${categories}" th:data-category-id="${category.idKategorija}">
+                <td th:text="${category.naziv}"></td>
+                <td>
+                    <a th:href="@{'/admin/categories/edit?id=' + ${category.idKategorija}}" class="btn btn-outline-primary">Update</a>
+                    <a th:href="@{'/admin/categories/delete?id=' + ${category.idKategorija}}" class="btn btn-outline-danger">Delete</a>
+                </td>
+            </tbody>
+        </TABLE>
+        <div class="mt-4">
+            <a th:href="@{/admin/categories/add}" class="btn btn-outline-success mt-3 mb-3">Add New Category</a>
+        </div>
+    </div>
+
+</section>
+
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="container mt-4">
+
+        <h2 class="mb-4"> Admin products</h2>
+
+        <div th:if="${deletionStatus == 'success'}" class="alert alert-success">
+            <strong>Success!</strong> Product has been deleted.
+        </div>
+<div th:if="${deletionStatus == 'unable'}" class="alert alert-warning">
+    <strong>Warning!</strong> Unable to delete product. There are existing associated orders.
+</div>
+        <div th:if =" ${deletionStatus == ' error'}" class=" alert alert-danger">
+            <strong> Error!</strong> An error occurred during deletion. Please try again.
+        </div>
+        <select id="categoryDropdown" class="form-control mb-4" style="width: 250px" >
+            <option value="all">All Categories</option>
+            <option th:each="category:${categories}" th:value="${category.naziv}"
+                    th:selected="${selectedCategoryName != null && category.naziv == selectedCategoryName}"
+                    th:text="${category.naziv}"></option>
+
+        </select>
+
+        <table class="table table-bordered table-hover" id="adminProductsTable">
+            <thead>
+            <tr>
+                <th>Category</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Available Quantity</th>
+                <th>Action</th>
+            </tr>
+
+            </thead>
+            <tbody>
+            <tr th:each="product: ${products}" th:data-product-id="${product.idProizvod}">
+                <td th:text="${categoryMap.get(product.kategorijaID)}"></td>
+                <td th:text="${product.naziv}"></td>
+                <td th:text="${product.cijena} + ' €'"></td>
+                <td th:text="${product.dostupnaKolicina}"></td>
+                <td>
+                    <a th:href="@{'/admin/products/edit?id=' + ${product.idProizvod}}" class="btn btn-outline-primary">Update</a>
+                    <a th:href="@{'/admin/products/delete?id=' + ${product.idProizvod}}" class="btn btn-outline-danger">Delete</a>
+                </td>
+
+            </tr>
+
+
+            </tbody>
+
+        </table>
+        <div class="mt-4">
+            <a th:href="@{/admin/products/add}" class="btn btn-outline-success mt-3 mb-3">Add New Product</a>
+            </div>
+    </div>
+
+</section>
+
+</body>
+</html>

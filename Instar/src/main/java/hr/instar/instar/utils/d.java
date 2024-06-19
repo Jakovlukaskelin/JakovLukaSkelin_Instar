@@ -2,7 +2,7 @@ package hr.instar.instar.utils;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-public class PasswordEncoder {
+public class d {
 
     public static void main(String[] args) {
         String password = "password";
