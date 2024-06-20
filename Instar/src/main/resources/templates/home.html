@@ -5,23 +5,21 @@
       layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
-
 </head>
 <body>
 <section layout:fragment="content">
-
-    <div class="container mt-5">
-
-        <div class="row justify-content-center">
-            <div class="col-md-6 text-center">
-                <h1 class="display-4 mb-4">Welcome!</h1>
-                <p class="lead">Discover our wide range of products and get the best deals today.</p>
-            </div>
-        </div>
-
+    <h1>Welcome to Our Online Store!</h1>
+    <div>
+        <a th:href="@{/store/products?categoryID=1}">
+            <img src="/image/cpu.jfif" alt="CPU">
+        </a>
+        <a th:href="@{/store/products?categoryID=2}">
+            <img src="/image/motherboard.jfif" alt="Motherboard">
+        </a>
+        <a th:href="@{/store/products?categoryID=3}">
+            <img src="/image/download.jfif" alt="GPU">
+        </a>
     </div>
-
 </section>
-
 </body>
 </html>

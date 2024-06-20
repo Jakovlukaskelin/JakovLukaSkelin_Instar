@@ -8,6 +8,8 @@ import hr.instar.instar.paypal.PaypalService;
 import hr.instar.instar.repository.StoreRepository;
 import hr.instar.instar.session.Cart;
 import lombok.AllArgsConstructor;
+
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,14 +32,18 @@ public class CheckoutController {
 
 @PostMapping("/process")
     public String checkout(@ModelAttribute("cart") Cart cart,
-                           @RequestParam String paymentMethod) {
+                           @RequestParam String paymentMethod ,
+                            Authentication authentication) {
 
     if (cart.IsEmpty()) {
         return "redirect:/store/cart?purchase=empty_cart";
     }
-
+    String username = authentication.getName();
     if ("Cash".equals(paymentMethod)) {
+        storeRepository.savePurchase(cart, username, paymentMethod);
+        cart.removeAllItems();
         return "redirect:/store/cart?purchase=success&paymentMethod=Cash";
+
     } else if ("Paypal".equals(paymentMethod)) {
         try {
             double totalAmount = cart.getTotalPrice();

@@ -37,9 +37,11 @@ public class SecurityConfiguration {
                         .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
                         .requestMatchers("/api/admin/**").hasAuthority("ROLE_ADMIN")
                         .requestMatchers(resources).permitAll()
+                        .requestMatchers("/image/**").permitAll()
                         .anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/auth/login")
+                        .failureUrl("/auth/login?error=true")
                         .loginProcessingUrl("/auth/login/process")
                         .defaultSuccessUrl("/store", true)
                         .permitAll())

@@ -21,7 +21,7 @@
         <h2 class="mb-4">Purchase History</h2>
 
         <ul class="list-group mb-5">
-            <li th:each="racunDetail : ${purchaseHistory.racunDetailsList}" class="list-group-item">
+            <li th:each="racunDetail : ${purchaseHistory.purchaseDetailsList}" class="list-group-item">
                 <h5 style="color: midnightblue; text-decoration: underline">Invoice ID: <span
                         th:text="${racunDetail.racun.idRacun}"></span></h5>
                 <p>Time of Purchase: <span class="timestamp"
@@ -32,7 +32,7 @@
 
                 <h6>Items:</h6>
                 <ul class="list-group mt-2">
-                    <li th:each="stavkaDetail : ${racunDetail.stavkeDetails}" class="list-group-item">
+                    <li th:each="stavkaDetail : ${racunDetail.itemDetails}" class="list-group-item">
                         <p style="color: darkblue; text-decoration: underline">Item ID: <span
                                 th:text="${stavkaDetail.idStavka}"></span></p>
                         <p>Product Name: <span th:text="${stavkaDetail.naziv}"></span></p>

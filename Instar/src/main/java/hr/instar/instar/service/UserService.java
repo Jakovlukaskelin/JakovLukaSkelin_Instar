@@ -1,6 +1,7 @@
 package hr.instar.instar.service;
 
 import hr.instar.instar.doamin.users;
+import hr.instar.instar.repository.StoreRepository;
 import hr.instar.instar.repository.UserRepository;
 import lombok.AllArgsConstructor;
 
@@ -10,12 +11,14 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
-
+   private final StoreRepository storeRepository;
     private PasswordEncoder passwordEncoder;
 
     public void registerUser(String username, String password) {
@@ -35,6 +38,12 @@ public class UserService {
         }
         return null;
         }
+    public void deleteUser(String username) {
+        storeRepository.deleteUser(username);
+    }
 
+    public List<users> getAllUsers() {
+        return storeRepository.getAllUsers();
+    }
 
 }

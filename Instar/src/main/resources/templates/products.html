@@ -37,6 +37,7 @@
                 <td th:text="${product.cijena} + ' €'"></td>
                 <td th:text="${product.dostupnaKolicina}"></td>
                 <td>
+
                     <form th:action="@{cart/add}" method="post">
                         <input type="hidden" name="productId" th:value="${product.idProizvod}"/>
                         <input type="number" class="form-control product-quantity" name="quantity"
@@ -45,6 +46,7 @@
                             <button type="submit" class="btn btn-outline-primary add-to-cart-btn">Add to Cart</button>
                         </td>
                     </form>
+
                 </td>
             </tbody>
 
@@ -55,10 +57,10 @@
         $(document).ready(function () {
             var table = $('#productsTable').DataTable();
 
-            $('#categoryDropdown').on('change', function () {
+            $('#categoryDropDown').on('change', function () {
                 var selectedCategoryName = $(this).find("option:selected").text();
 
-                if (selectedCategoryName === "All Categories") {
+                if (selectedCategoryName === "All categories") {
                     table.column(0).search('').draw();
                 } else {
                     table.column(0).search(selectedCategoryName).draw();

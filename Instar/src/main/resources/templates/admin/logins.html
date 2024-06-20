@@ -22,10 +22,9 @@
             </thead>
             <tbody>
             <tr th:each="loginHistory: ${completeLoginHistory}">
-                 <td th:each="${loginHistory.username}" ></td>
-                 <td th:each="${loginHistory.vrijemeLogina}" ></td>
-                 <td th:each="${loginHistory.ipAdresa}" ></td>
-
+                <td th:text="${loginHistory.username}"></td>
+                <td th:text="${loginHistory.vrijemeLogina}"></td>
+                <td th:text="${loginHistory.ipAdresa}"></td>
             </tr>
             </tbody>
         </table>

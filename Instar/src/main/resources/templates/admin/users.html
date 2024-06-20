@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Users</title>
+</head>
+<body>
+<section layout:fragment="content">
+<table>
+    <thead>
+    <tr>
+        <th>Username</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr th:each="user : ${users}">
+        <td th:text="${user.getUsername()}"></td>
+        <td>
+            <form th:action="@{/admin/deleteUser/{username}(username=${user.username})}" method="post">
+                <input type="submit" value="Delete">
+            </form>
+        </td>
+    </tr>
+    </tbody>
+
+</table>
+</section>
+</body>
+</html>

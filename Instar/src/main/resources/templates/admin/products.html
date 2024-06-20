@@ -62,7 +62,21 @@
             <a th:href="@{/admin/products/add}" class="btn btn-outline-success mt-3 mb-3">Add New Product</a>
             </div>
     </div>
+    <script>
+        $(document).ready(function () {
+            var table = $('#adminProductsTable').DataTable(); // Corrected ID
 
+            $('#categoryDropdown').on('change', function () {
+                var selectedCategoryName = $(this).find("option:selected").text();
+
+                if (selectedCategoryName === "All Categories") {
+                    table.column(0).search('').draw();
+                } else {
+                    table.column(0).search(selectedCategoryName).draw();
+                }
+            }).trigger('change');
+        });
+    </script>
 </section>
 
 </body>

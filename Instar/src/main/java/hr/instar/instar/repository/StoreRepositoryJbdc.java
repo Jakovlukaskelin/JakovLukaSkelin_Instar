@@ -196,7 +196,7 @@ String sql = "UPDATE Kategorija SET Naziv = ? WHERE IDKategorija = ?";
     public void addRequestHistory(RequestHistory requestHistory) {
 
         String sql = "INSERT INTO RequestHistory (Username, RequestTime, RequestType) VALUES (?, ?, ?)";
-        jdbcTemplate.update(sql, requestHistory.getUsername(), requestHistory.getVrijemeRequesta(), requestHistory.getRequest());
+        jdbcTemplate.update(sql, requestHistory.getUsername(), requestHistory.getVrijemeRequesta(), requestHistory.getRequestType());
     }
 
     @Override
@@ -224,6 +224,22 @@ String sql = "INSERT INTO LoginHistory (Username, vrijemeLogina, ipAdresa) VALUE
             purchaseHistoryDtoList.add(purchaseHistoryDto);
         }
         return purchaseHistoryDtoList;
+    }
+
+    @Override
+    public void deleteUser(String username) {
+        String deleteAuthoritiesSql = "DELETE FROM authorities WHERE username = ?";
+        jdbcTemplate.update(deleteAuthoritiesSql, username);
+        String sql = "DELETE FROM users WHERE username = ?";
+        jdbcTemplate.update(sql, username);
+    }
+
+    @Override
+    public List<users> getAllUsers() {
+        String sql = "SELECT * FROM users";
+        return jdbcTemplate.query(sql, (ResultSet rs, int rowNum) -> new users(
+                rs.getString("username"),
+                rs.getString("password")));
     }
 
     private List<String> getAllUserNamesWithInvoices() {

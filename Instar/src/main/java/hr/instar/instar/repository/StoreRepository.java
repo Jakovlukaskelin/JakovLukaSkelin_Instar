@@ -1,9 +1,6 @@
 package hr.instar.instar.repository;
 
-import hr.instar.instar.doamin.Kategorija;
-import hr.instar.instar.doamin.LoginHistory;
-import hr.instar.instar.doamin.Proizvod;
-import hr.instar.instar.doamin.RequestHistory;
+import hr.instar.instar.doamin.*;
 import hr.instar.instar.dto.PurchaseHistoryDto;
 import hr.instar.instar.session.Cart;
 
@@ -34,4 +31,7 @@ public interface StoreRepository {
     List<LoginHistory> getCompleteLoginHistory();
 
     List<PurchaseHistoryDto> getCompletePurchaseHistory();
+
+    void deleteUser(String username);
+    List<users> getAllUsers();
 }

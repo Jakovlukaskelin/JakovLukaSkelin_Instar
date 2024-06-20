@@ -23,6 +23,8 @@ public class UserRepositoryJbdc implements UserRepository{
     public void registerUser(String username, String password) {
         String sql = "INSERT INTO users (username, password, enabled) VALUES (?, ?, ?)";
         jdbcTemplate.update(sql, username, password, true);
+        String roleSql = "INSERT INTO authorities (username, authority) VALUES (?, ?)";
+        jdbcTemplate.update(roleSql, username, "ROLE_USER");
     }
 
     @Override
