@@ -243,13 +243,13 @@ String sql = "INSERT INTO LoginHistory (Username, vrijemeLogina, ipAdresa) VALUE
     }
 
     private List<String> getAllUserNamesWithInvoices() {
-    String sql = "SELECT u.username"+
-                "FROM users u " +
-                    "JOIN authorities a ON u.username = a.username " +
-                "LEFT JOIN Racun r ON u.username = r.username " +
-                "WHERE a.authority = 'ROLE_USER' " +
-                "GROUP BY u.username " +
-                "HAVING COUNT(r.IDRacun) > 0";
+    String sql = "SELECT u.username " +
+            "FROM users u " +
+            "JOIN authorities a ON u.username = a.username " +
+            "LEFT JOIN Racun r ON u.username = r.username " +
+            "WHERE a.authority = 'ROLE_USER' " +
+            "GROUP BY u.username " +
+            "HAVING COUNT(r.IDRacun) > 0";
 
         return jdbcTemplate.queryForList(sql, String.class);
 

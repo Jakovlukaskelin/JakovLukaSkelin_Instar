@@ -28,7 +28,7 @@ public class SecurityConfiguration {
                 "/",
                 "/store/**",
                 "/auth/login",
-                "/auth/register"
+                "/auth/register","/static/image/**"
         };
 
         http.authorizeHttpRequests((requests) -> requests
@@ -37,7 +37,6 @@ public class SecurityConfiguration {
                         .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
                         .requestMatchers("/api/admin/**").hasAuthority("ROLE_ADMIN")
                         .requestMatchers(resources).permitAll()
-                        .requestMatchers("/image/**").permitAll()
                         .anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/auth/login")
