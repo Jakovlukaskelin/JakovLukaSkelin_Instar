@@ -30,6 +30,9 @@ public class CheckoutController {
 
 }
 
+
+
+
 @PostMapping("/process")
     public String checkout(@ModelAttribute("cart") Cart cart,
                            @RequestParam String paymentMethod ,
@@ -49,8 +52,8 @@ public class CheckoutController {
             double totalAmount = cart.getTotalPrice();
             Payment payment = paypalService.createPayment(totalAmount, "EUR", "paypal", "sale",
                     "Test payment",
-                    "http://localhost:8081/store/cart?purchase=error&paymentMethod=Paypal",
-                    "http://localhost:8081/store/cart?purchase=success&paymentMethod=Paypal");
+                    "https://thebestweb.azurewebsites.net/store/cart?purchase=error&paymentMethod=Paypal",
+                    "https://thebestweb.azurewebsites.net/store/cart?purchase=success&paymentMethod=Paypal");
             for(Links link : payment.getLinks()) {
                 if(link.getRel().equals("approval_url")) {
                     return "redirect:" + link.getHref();

@@ -28,7 +28,8 @@ public class SecurityConfiguration {
                 "/",
                 "/store/**",
                 "/auth/login",
-                "/auth/register","/static/image/**"
+                "/auth/register",    "/static/image/**",
+                "/api/isLoggedIn"
         };
 
         http.authorizeHttpRequests((requests) -> requests

@@ -17,7 +17,8 @@
                 <div class="form-group col-md-4">
 
                     <label for="username">Username</label>
-                    <input type="text" class="form-control" id="username">
+                        <select class="form-control" id="username"></select>
+
                 </div>
                 <div class="form-group col-md-4">
                     <label for="dateFrom">Date from</label>
@@ -110,7 +111,20 @@
         }
 
         $(document).ready(function () {
-            fetchData();
+
+            $.get("/api/admin/usersWithPurchases", function(users) {
+
+                let usernameSelect = document.getElementById('username');
+                users.forEach(function(user) {
+                    let option = document.createElement('option');
+                    option.value = user;
+                    option.text = user;
+                    usernameSelect.appendChild(option);
+                });
+            });
+
+
+            $('#filterForm').on('submit', fetchData);
         });
 
 </script>

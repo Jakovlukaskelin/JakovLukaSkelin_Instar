@@ -79,7 +79,7 @@
         <!-- Payment Method Selector and Checkout Button -->
         <div class="row mt-4">
             <div class="col-md-4 mx-auto">
-                <form th:action="@{/store/checkout/process}" method="post">
+                <form id="checkoutForm" th:action="@{/store/checkout/process}" method="post">
                     <div class="form-group mb-3">
                         <label for="paymentMethod" class="mb-2">Choose a payment method:</label>
                         <select id="paymentMethod" name="paymentMethod" class="form-control" style="width: 100%;">
@@ -96,7 +96,29 @@
 
 
     </div>
+    <script>
+        function checkLoginStatus(event) {
+            event.preventDefault();
+
+            $.get("/api/isLoggedIn")
+                .done(function(isLoggedIn) {
+                    if (isLoggedIn) {
+                        $("#checkoutForm").off("submit").submit();
+                    } else {
+                        alert("Please login to continue. Don't have an account? Please register.");
+                    }
+                })
+                .fail(function() {
+                    alert("Error checking login status. Please try again.");
+                });
+        }
+
+        $(document).ready(function() {
+            $("#checkoutForm").on("submit", checkLoginStatus);
+        });
+    </script>
 </section>
+
 </body>
 
 </html>
